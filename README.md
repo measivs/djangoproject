@@ -10,8 +10,15 @@ This is a Django project that consists of two apps, `store` and `order`, which m
 
 ## Features
 
-- Display a list of products and their details.
-- Manage orders (to be implemented).
+### Store App
+- **Product List**: Displays a list of available products with links to their details.
+- **Product Detail**: Shows detailed information about a specific product.
+- **Category Information**: Provides a list of all categories in JSON format.
+- **Product Information**: Exports product data, including their related categories, in JSON format.
+
+### Order App
+- **Order List**: Displays a list of customer orders.
+- **Order Detail**: Shows detailed information about a specific order, including the product, quantity, and total price.
 
 ## Setup Instructions
 
