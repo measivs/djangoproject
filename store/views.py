@@ -1,11 +1,8 @@
-import json
-
-from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 
 from .data import items
 from .models import Category, Product
-
+import os
 
 def product_list(request):
     prdct_list = "<h1>List of Products</h1><ul>"
@@ -22,12 +19,27 @@ def product_detail(request, product_id):
         return HttpResponse("<h1>Product not found</h1>")
 
 def category_info(request):
-    categories = Category.objects.values('id', 'category_name', 'parent')
-    return JsonResponse(list(categories), safe=False)
+    categories_data = []
+    categories = Category.objects.all()
+    for category in categories:
+        ctgrs_data = {
+            'id': category.id,
+            'category name': category.category_name,
+            'parent': category.parent.id if category.parent else None,
+        }
+        categories_data.append(ctgrs_data)
 
-def product_info(reqeust):
-    products = Product.objects.prefetch_related('categories')
-    products_json = serializers.serialize('json', products)
-    products_data = json.loads(products_json)
+    return JsonResponse(categories_data, safe=False)
+
+def product_info(request):
+    products_data = []
+    products = Product.objects.all()
+    for p in products:
+        prdcts_data = {
+            'product name': p.product_name,
+            'image url': os.path.basename(p.product_image.name) if p.product_image else None,
+            'categories': [{'id': category.id, 'name': category.category_name} for category in p.categories.all()],
+        }
+        products_data.append(prdcts_data)
+
     return JsonResponse(products_data, safe=False)
-
