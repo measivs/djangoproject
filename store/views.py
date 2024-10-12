@@ -1,8 +1,10 @@
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
 
 from .data import items
 from .models import Category, Product
 import os
+from django.db.models import Prefetch
 
 def product_list(request):
     prdct_list = "<h1>List of Products</h1><ul>"
@@ -20,7 +22,7 @@ def product_detail(request, product_id):
 
 def category_info(request):
     categories_data = []
-    categories = Category.objects.all()
+    categories = Category.objects.select_related('parent')
     for category in categories:
         ctgrs_data = {
             'id': category.id,
@@ -33,7 +35,7 @@ def category_info(request):
 
 def product_info(request):
     products_data = []
-    products = Product.objects.all()
+    products = Product.objects.prefetch_related('categories')
     for p in products:
         prdcts_data = {
             'product name': p.product_name,
@@ -43,3 +45,13 @@ def product_info(request):
         products_data.append(prdcts_data)
 
     return JsonResponse(products_data, safe=False)
+
+def category_listing(request):
+    filtered_category_queryset = Category.objects.filter(parent__isnull=True).values('id', 'category_name')
+    categories = Category.objects.annotate('parent')
+    return render(request, 'store/listing_category.html', {'category_names': filtered_category_queryset})
+
+def details_of_category(request, category_id):
+    return HttpResponse('')
+
+
