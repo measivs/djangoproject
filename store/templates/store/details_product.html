@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Details of The Product</title>
+</head>
+<body>
+    <h1>Details of {{ product.product_name }}</h1>
+    <ul>
+        <li>Product Image:
+            {% if product.product_image %}
+                <img src="{{ product.product_image.url }}" alt="{{ product.product_name }} " style="max-width: 300px; max-height: 100px;">
+            {% else %}
+                No image
+            {% endif %}
+        </li>
+        <li>Product Price: {{ product.price }}</li>
+        <li>Product Quantity: {{ product.quantity }}</li>
+    </ul>
+</body>
+</html>

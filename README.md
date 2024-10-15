@@ -8,17 +8,28 @@ This is a Django project that consists of two apps, `store` and `order`, which m
 - **order**: Manages order-related views.
 - **admin**: Django's admin interface for managing the project.
 
-## Features
+## Views Overview
 
-### Store App
-- **Product List**: Displays a list of available products with links to their details.
-- **Product Detail**: Shows detailed information about a specific product.
-- **Category Information**: Provides a list of all categories in JSON format.
-- **Product Information**: Exports product data, including their related categories, in JSON format.
+### `product_list`
+- Displays a list of products with links to their respective detail pages.
 
-### Order App
-- **Order List**: Displays a list of customer orders.
-- **Order Detail**: Shows detailed information about a specific order, including the product, quantity, and total price.
+### `product_detail`
+- Displays details of a specific product based on its ID.
+
+### `category_info`
+- Provides a JSON response containing information about categories, including their parent categories.
+
+### `product_info`
+- Provides a JSON response containing information about products, including their names, image URLs, and related categories.
+
+### `category_listing`
+- Renders a list of top-level categories with the quantity of products in each category.
+
+### `product_listing`
+- Renders a list of products in a specific category, along with statistical data (max, min, avg prices) and total price of products. Implements pagination for the product list.
+
+### `details_of_product`
+- Displays detailed information about a specific product, including its price and description.
 
 ## Setup Instructions
 

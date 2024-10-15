@@ -10,11 +10,10 @@
     <ul>
         {% for category in category_names %}
             <li>
-                <a href="{% url 'details_of_category' category.id %}">{{ category.category_name }}</a>
+                <a href="{% url 'product_listing' category.id %}">{{ category.category_name }}</a>
+                 - {{ category.products_quantity }} products
             </li>
         {% endfor %}
     </ul>
 </body>
 </html>
-
-

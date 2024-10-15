@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product Listing</title>
+</head>
+<body>
+    <h1>Product Listing</h1>
+    <ul>
+        {% for product in product_names %}
+            <li>
+                <a href="{% url 'details_of_product' product.id %}">{{ product.product_name }}</a>
+                , Total Price: {{ product.total_cost }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if product_names.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ product_names.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ product_names.number }} of {{ product_names.paginator.num_pages }}.
+            </span>
+
+            {% if product_names.has_next %}
+                <a href="?page={{ product_names.next_page_number }}">Next</a>
+                <a href="?page={{ product_names.paginator.num_pages }}">Last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <div>
+        <h1>Statistic</h1>
+        <p>Price of the most expensive product: {{ max_price|floatformat:2 }}</p>
+        <p>Price of the cheapest product: {{ min_price|floatformat:2 }}</p>
+        <p>Average price of the product: {{ avg_price|floatformat:2 }}</p>
+        <p>Total price of products: {{ total_price|floatformat:2 }}</p>
+    </div>
+</body>
+</html>
