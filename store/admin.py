@@ -4,9 +4,6 @@ from django.contrib.admin import ModelAdmin
 from .models import Category, Product
 from mptt.admin import MPTTModelAdmin
 
-# admin.site.register(Category, MPTTModelAdmin)
-# admin.site.register(Product)
-
 @admin.register(Category)
 class CustomCategory(MPTTModelAdmin):
     model = Category
@@ -15,11 +12,11 @@ class CustomCategory(MPTTModelAdmin):
     list_filter = ('category_name',)
 
 
-
 @admin.register(Product)
 class CustomProduct(ModelAdmin):
     model = Product
-    list_display = ('product_name', 'product_image')
-    search_fields = ('product_name',)
-    list_filter = ('product_name',)
-
+    list_display = ('product_name', 'price', 'quantity')
+    search_fields = ('product_name', 'price', 'quantity')
+    list_filter = ('product_name', 'price')
+    list_editable = ('quantity',)
+    list_per_page = 5
