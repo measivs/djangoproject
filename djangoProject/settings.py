@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'order',
     'mptt',
     'debug_toolbar',
+    'users',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
